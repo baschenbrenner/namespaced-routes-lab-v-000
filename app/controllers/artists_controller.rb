@@ -1,6 +1,11 @@
 class ArtistsController < ApplicationController
+  
   def index
+    if Preference.last
+    @artists = Artist.order("name #{Preference.last.artist_sort_order}")
+    else 
     @artists = Artist.all
+    end
   end
 
   def show
@@ -8,7 +13,13 @@ class ArtistsController < ApplicationController
   end
 
   def new
+    if Preference.last && Preference.last.new_artist == true
     @artist = Artist.new
+    elsif Preference.last == nil
+    @artist = Artist.new
+    else
+    redirect_to artists_path
+    end
   end
 
   def create

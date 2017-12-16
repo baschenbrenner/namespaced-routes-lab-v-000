@@ -25,7 +25,7 @@ RSpec.describe SongsController do
   
   describe "GET new" do
     it "redirects when access is turned off" do
-      p = Preference.create(allow_create_songs: false)
+      p = Preference.create(new_songs: false)
       get :new
       expect(response).to redirect_to songs_path
     end
